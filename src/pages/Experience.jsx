@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaBriefcase, FaGlobe } from 'react-icons/fa';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Experience = () => {
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100,
+    });
+    AOS.refresh();
+  }, []);
+
   // Experience data object
   const experienceData = [
     {
@@ -54,7 +67,7 @@ const Experience = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-500 via-slate-300 to-gray-500 bg-clip-text text-transparent mb-4">
             Experience
           </h2>
@@ -67,11 +80,22 @@ const Experience = () => {
           {/* Experience Grid */}
           <div className="grid lg:grid-cols-2 gap-8">
             
-            {experienceData.map((experience) => (
-              <div key={experience.id} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8">
+            {experienceData.map((experience, index) => (
+              <div 
+                key={experience.id} 
+                className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay={index * 200}
+              >
                 
                 {/* Header Section */}
-                <div className="flex items-start gap-4 mb-4">
+                <div 
+                  className="flex items-start gap-4 mb-4"
+                  data-aos="fade-right"
+                  data-aos-duration="600"
+                  data-aos-delay={index * 200 + 100}
+                >
                   <div className="mt-1">{experience.icon}</div>
                   <div>
                     <h3 className="text-xl sm:text-xl font-bold text-gray-300 mb-2">
@@ -86,13 +110,20 @@ const Experience = () => {
                     </div>
                   </div>
                 </div>
+                
                 {/* Key Points */}
                 <div className="space-y-3 text-gray-300 mb-6">
-                  {experience.achievements.map((achievement, index) => {
+                  {experience.achievements.map((achievement, achievementIndex) => {
                     const colors = ['blue-400', 'purple-400', 'green-400'];
                     return (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className={`w-2 h-2 bg-${colors[index % colors.length]} rounded-full mt-2 flex-shrink-0`}></div>
+                      <div 
+                        key={achievementIndex} 
+                        className="flex items-start gap-3"
+                        data-aos="fade-left"
+                        data-aos-duration="600"
+                        data-aos-delay={index * 200 + 200 + achievementIndex * 100}
+                      >
+                        <div className={`w-2 h-2 bg-${colors[achievementIndex % colors.length]} rounded-full mt-2 flex-shrink-0`}></div>
                         <p>{achievement}</p>
                       </div>
                     );
@@ -100,13 +131,21 @@ const Experience = () => {
                 </div>
 
                 {/* Technologies */}
-                <div className="border-t border-white/10 pt-4">
+                <div 
+                  className="border-t border-white/10 pt-4"
+                  data-aos="zoom-in"
+                  data-aos-duration="600"
+                  data-aos-delay={index * 200 + 400}
+                >
                   <p className="text-sm text-gray-400 mb-2">Technologies:</p>
                   <div className="flex flex-wrap gap-2">
-                    {experience.technologies.map((tech, index) => (
+                    {experience.technologies.map((tech, techIndex) => (
                       <span 
-                        key={index}
+                        key={techIndex}
                         className={`px-2 py-1 bg-${experience.techColor}/20 border border-${experience.techColor}/30 rounded-md text-${experience.companyColor} text-xs`}
+                        data-aos="fade-up"
+                        data-aos-duration="400"
+                        data-aos-delay={index * 200 + 500 + techIndex * 50}
                       >
                         {tech}
                       </span>

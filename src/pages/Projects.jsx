@@ -1,8 +1,42 @@
-import React from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FaExternalLinkAlt, FaGithub, FaCode, FaRocket } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi';
 
 const Projects = () => {
+  // Animation states
+  const [visibleElements, setVisibleElements] = useState([]);
+  const elementRefs = useRef([]);
+
+  // Scroll animation observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = entry.target.getAttribute('data-index');
+          if (entry.isIntersecting) {
+            setVisibleElements(prev => [...prev, parseInt(index)]);
+          } else {
+            setVisibleElements(prev => prev.filter(i => i !== parseInt(index)));
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    elementRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      elementRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, []);
+
   const projects = [
     {
       id: 1,
@@ -95,9 +129,16 @@ const Projects = () => {
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Professional Header */}
-        <div className="text-center mb-8 sm:mb-12">
-          
+        {/* Animated Header */}
+        <div 
+          ref={el => elementRefs.current[0] = el}
+          data-index="0"
+          className={`text-center mb-8 sm:mb-12 transition-all duration-1000 ${
+            visibleElements.includes(0) 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-500 via-slate-300 to-gray-500 bg-clip-text text-transparent mb-4">
             Featured Projects
           </h2>
@@ -107,12 +148,19 @@ const Projects = () => {
           </p>
         </div>
 
-        {/* Responsive Projects Grid */}
+        {/* Animated Projects Grid */}
         <div className="grid gap-3 sm:gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div
               key={project.id}
-              className="group bg-slate-900/30 border border-slate-700/50 rounded-lg p-3 sm:p-4 hover:bg-gray-200/5 hover:border-slate-600/60 transition-all duration-300 cursor-pointer flex flex-col min-h-[280px] sm:min-h-[300px] backdrop-blur-sm"
+              ref={el => elementRefs.current[index + 1] = el}
+              data-index={index + 1}
+              className={`group bg-slate-900/30 border border-slate-700/50 rounded-lg p-3 sm:p-4 hover:bg-gray-200/5 hover:border-slate-600/60 transition-all duration-300 cursor-pointer flex flex-col min-h-[280px] sm:min-h-[300px] backdrop-blur-sm ${
+                visibleElements.includes(index + 1) 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={{ transitionDelay: `${index * 100}ms` }}
               onClick={() => handleProjectClick(project.link)}
             >
               
@@ -150,9 +198,9 @@ const Projects = () => {
                   <span className={`${project.accentColor} font-semibold text-xs`}>Tech Stack:</span>
                 </div>
                 <div className="flex flex-wrap gap-1">
-                  {project.techStack.map((tech, index) => (
+                  {project.techStack.map((tech, techIndex) => (
                     <span
-                      key={index}
+                      key={techIndex}
                       className={`px-1.5 py-0.5 rounded text-xs border ${tech.color}`}
                     >
                       {tech.name}
@@ -192,8 +240,16 @@ const Projects = () => {
           ))}
         </div>
 
-        {/* Professional CTA */}
-        <div className="text-center mt-8 sm:mt-12">
+        {/* Animated CTA */}
+        <div 
+          ref={el => elementRefs.current[projects.length + 1] = el}
+          data-index={projects.length + 1}
+          className={`text-center mt-8 sm:mt-12 transition-all duration-1000 ${
+            visibleElements.includes(projects.length + 1) 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <div className="max-w-2xl mx-auto">
             <h3 className="text-base sm:text-lg font-semibold text-white mb-2">
               Ready to Build Something Amazing?

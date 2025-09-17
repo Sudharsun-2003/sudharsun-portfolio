@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import emailjs from '@emailjs/browser';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 import { 
   FiMail, 
   FiPhone, 
@@ -24,6 +26,17 @@ const Contact = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100,
+    });
+    AOS.refresh();
+  }, []);
 
   // Auto-clear status messages after 5s
   useEffect(() => {
@@ -127,7 +140,7 @@ const Contact = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-16" data-aos="fade-up" data-aos-duration="800">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-500 via-slate-300 to-gray-500 bg-clip-text text-transparent mb-4">
             Get In Touch
           </h2>
@@ -142,15 +155,24 @@ const Contact = () => {
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
           
           {/* Contact Form */}
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8">
-            <div className="flex items-center gap-3 mb-6">
+          <div 
+            className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8"
+            data-aos="fade-right"
+            data-aos-duration="800"
+          >
+            <div 
+              className="flex items-center gap-3 mb-6"
+              data-aos="fade-down"
+              data-aos-duration="600"
+              data-aos-delay="200"
+            >
               <FiMessageSquare className="text-2xl text-blue-400" aria-label="Message icon" />
               <h3 className="text-2xl font-bold text-white">Send a Message</h3>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Field */}
-              <div>
+              <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
                 <label className="block text-gray-300 text-sm font-medium mb-2">
                   Your Name <span className="text-red-400">*</span>
                 </label>
@@ -169,7 +191,7 @@ const Contact = () => {
               </div>
 
               {/* Email Field */}
-              <div>
+              <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="400">
                 <label className="block text-gray-300 text-sm font-medium mb-2">
                   Email Address <span className="text-red-400">*</span>
                 </label>
@@ -188,7 +210,7 @@ const Contact = () => {
               </div>
 
               {/* Service Field */}
-              <div>
+              <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="500">
                 <label className="block text-gray-300 text-sm font-medium mb-2">
                   Service Required <span className="text-red-400">*</span>
                 </label>
@@ -212,7 +234,7 @@ const Contact = () => {
               </div>
 
               {/* Message Field */}
-              <div>
+              <div data-aos="fade-up" data-aos-duration="600" data-aos-delay="600">
                 <label className="block text-gray-300 text-sm font-medium mb-2">
                   Your Query/Message <span className="text-red-400">*</span>
                 </label>
@@ -229,14 +251,22 @@ const Contact = () => {
 
               {/* Submit Status Messages */}
               {submitStatus === 'success' && (
-                <div className="flex items-center gap-2 p-3 bg-green-500/20 border border-green-500/30 rounded-lg text-green-300">
+                <div 
+                  className="flex items-center gap-2 p-3 bg-green-500/20 border border-green-500/30 rounded-lg text-green-300"
+                  data-aos="zoom-in"
+                  data-aos-duration="500"
+                >
                   <FiCheck className="text-lg" />
                   <span>Message sent successfully! I'll get back to you soon.</span>
                 </div>
               )}
               
               {submitStatus === 'error' && (
-                <div className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300">
+                <div 
+                  className="flex items-center gap-2 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300"
+                  data-aos="zoom-in"
+                  data-aos-duration="500"
+                >
                   <FiAlertCircle className="text-lg" />
                   <span>Failed to send message. Please try again or contact directly.</span>
                 </div>
@@ -251,6 +281,9 @@ const Contact = () => {
                     ? 'bg-gray-600 cursor-not-allowed' 
                     : 'bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600 hover:shadow-lg hover:shadow-purple-500/25'
                 } text-white`}
+                data-aos="slide-up"
+                data-aos-duration="600"
+                data-aos-delay="700"
               >
                 {isSubmitting ? (
                   <>
@@ -274,15 +307,30 @@ const Contact = () => {
           <div className="space-y-8">
             
             {/* Contact Info Card */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6">
+            <div 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8"
+              data-aos="fade-left"
+              data-aos-duration="800"
+            >
+              <div 
+                className="flex items-center gap-3 mb-6"
+                data-aos="fade-down"
+                data-aos-duration="600"
+                data-aos-delay="200"
+              >
                 <FiPhone className="text-2xl text-green-400" aria-label="Phone icon" />
                 <h3 className="text-2xl font-bold text-white">Contact Information</h3>
               </div>
 
               <div className="space-y-4">
                 {contactInfo.map((info, index) => (
-                  <div key={index} className="flex items-center gap-4 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300">
+                  <div 
+                    key={index} 
+                    className="flex items-center gap-4 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-all duration-300"
+                    data-aos="fade-up"
+                    data-aos-duration="600"
+                    data-aos-delay={300 + index * 100}
+                  >
                     <div className={`text-${info.color}`}>
                       {info.icon}
                     </div>
@@ -296,23 +344,48 @@ const Contact = () => {
             </div>
 
             {/* Let's Connect Card */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8">
-              <div className="flex items-center gap-3 mb-6">
+            <div 
+              className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-8"
+              data-aos="fade-left"
+              data-aos-duration="800"
+              data-aos-delay="200"
+            >
+              <div 
+                className="flex items-center gap-3 mb-6"
+                data-aos="fade-down"
+                data-aos-duration="600"
+                data-aos-delay="400"
+              >
                 <FiGlobe className="text-2xl text-purple-400" aria-label="Globe icon" />
                 <h3 className="text-2xl font-bold text-white">Let's Connect</h3>
               </div>
               
-              <p className="text-gray-300 leading-relaxed mb-6">
+              <p 
+                className="text-gray-300 leading-relaxed mb-6"
+                data-aos="fade-up"
+                data-aos-duration="600"
+                data-aos-delay="500"
+              >
                 I'm always open to exciting opportunities, freelance projects, or meaningful collaborations. 
                 Drop me a message, and let's turn ideas into reality!
               </p>
 
               <div className="space-y-3">
-                <div className="flex items-center gap-3 text-green-400">
+                <div 
+                  className="flex items-center gap-3 text-green-400"
+                  data-aos="slide-right"
+                  data-aos-duration="600"
+                  data-aos-delay="600"
+                >
                   <FiZap className="text-lg" />
                   <span className="text-sm">Typically replies within 24 hours</span>
                 </div>
-                <div className="flex items-center gap-3 text-blue-400">
+                <div 
+                  className="flex items-center gap-3 text-blue-400"
+                  data-aos="slide-right"
+                  data-aos-duration="600"
+                  data-aos-delay="700"
+                >
                   <FiGlobe className="text-lg" />
                   <span className="text-sm">Available for remote work</span>
                 </div>

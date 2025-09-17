@@ -34,6 +34,40 @@ const Skills = () => {
   const sliderRef = useRef(null);
   const [isClient, setIsClient] = useState(false);
   const [key, setKey] = useState(0);
+  
+  // Animation states
+  const [visibleElements, setVisibleElements] = useState([]);
+  const elementRefs = useRef([]);
+
+  // Scroll animation observer
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const index = entry.target.getAttribute('data-index');
+          if (entry.isIntersecting) {
+            setVisibleElements(prev => [...prev, parseInt(index)]);
+          } else {
+            setVisibleElements(prev => prev.filter(i => i !== parseInt(index)));
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+      }
+    );
+
+    elementRefs.current.forEach((ref) => {
+      if (ref) observer.observe(ref);
+    });
+
+    return () => {
+      elementRefs.current.forEach((ref) => {
+        if (ref) observer.unobserve(ref);
+      });
+    };
+  }, [isClient]);
 
   // Ensure client-side rendering
   useEffect(() => {
@@ -224,10 +258,18 @@ const Skills = () => {
   }
 
   return (
-    <section id="skills" className="relative py-10 ">
+    <section id="skills" className="relative py-10">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-12">
+        {/* Section Header with Animation */}
+        <div 
+          ref={el => elementRefs.current[0] = el}
+          data-index="0"
+          className={`text-center mb-12 transition-all duration-1000 ${
+            visibleElements.includes(0) 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-500 via-slate-300 to-gray-500 bg-clip-text text-transparent mb-4">
             Skills & Expertise
           </h2>
@@ -237,8 +279,16 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* Skills Slider */}
-        <div className="relative skills-slider-container">
+        {/* Skills Slider with Animation */}
+        <div 
+          ref={el => elementRefs.current[1] = el}
+          data-index="1"
+          className={`relative skills-slider-container transition-all duration-1000 ${
+            visibleElements.includes(1) 
+              ? 'opacity-100 translate-y-0' 
+              : 'opacity-0 translate-y-8'
+          }`}
+        >
           <Slider 
             {...sliderSettings} 
             ref={sliderRef} 
@@ -291,7 +341,7 @@ const Skills = () => {
                   </div>
 
                   {/* Category Badge */}
-                  <div className="mt-5 pt-4  border-t border-gray-600/20">
+                  <div className="mt-5 pt-4 border-t border-gray-600/20">
                     <span className={`inline-block px-3 py-1 bg-gradient-to-r ${category.color} bg-opacity-20 text-xs font-medium text-white rounded-full group-hover:scale-105 transition-transform duration-300`}>
                       {category.skills.length} {category.skills.length === 1 ? 'Skill' : 'Skills'}
                     </span>

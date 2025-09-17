@@ -9,6 +9,8 @@ import Certifications from './pages/Certifications'
 import Contact from './pages/Contact'
 import Footer from './components/layout/Footer'
 
+
+
 const App = () => {
   return (
     <div className='bg-gradient-to-br from-blue-950 via-slate-900 to-indigo-900 overflow-hidden'>

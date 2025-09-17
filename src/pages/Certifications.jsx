@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaAws, FaJava, FaCertificate, FaExternalLinkAlt } from 'react-icons/fa';
 import { HiSparkles } from 'react-icons/hi';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const Certifications = () => {
+  // Initialize AOS
+  useEffect(() => {
+    AOS.init({
+      duration: 800,
+      easing: 'ease-in-out',
+      once: true,
+      offset: 100,
+    });
+    AOS.refresh();
+  }, []);
+
   // Certifications data object
   const certificationsData = [
     {
@@ -47,7 +60,7 @@ const Certifications = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center mb-8 sm:mb-12">
+        <div className="text-center mb-8 sm:mb-12" data-aos="fade-up" data-aos-duration="800">
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold bg-gradient-to-r from-gray-500 via-slate-300 to-gray-500 bg-clip-text text-transparent mb-4">
             Certifications
@@ -64,11 +77,22 @@ const Certifications = () => {
           {/* Certifications Grid */}
           <div className="grid md:grid-cols-1 lg:grid-cols-2 gap-6">
             
-            {certificationsData.map((cert) => (
-              <div key={cert.id} className="group bg-slate-900/30 border border-slate-700/50 rounded-lg p-4 sm:p-6 hover:bg-gray-200/5 hover:border-slate-600/60 transition-all duration-300 backdrop-blur-sm">
+            {certificationsData.map((cert, index) => (
+              <div 
+                key={cert.id} 
+                className="group bg-slate-900/30 border border-slate-700/50 rounded-lg p-4 sm:p-6 hover:bg-gray-200/5 hover:border-slate-600/60 transition-all duration-300 backdrop-blur-sm"
+                data-aos="fade-up"
+                data-aos-duration="800"
+                data-aos-delay={index * 200}
+              >
                 
                 {/* Header Section */}
-                <div className="flex items-start gap-4 mb-4">
+                <div 
+                  className="flex items-start gap-4 mb-4"
+                  data-aos="fade-right"
+                  data-aos-duration="600"
+                  data-aos-delay={index * 200 + 100}
+                >
                   <div className="bg-slate-800/50 rounded-lg p-2 group-hover:bg-slate-700/60 transition-all duration-300">
                     {cert.icon}
                   </div>
@@ -88,23 +112,36 @@ const Certifications = () => {
                 </div>
 
                 {/* Description */}
-                <div className="mb-4">
+                <div 
+                  className="mb-4"
+                  data-aos="fade-left"
+                  data-aos-duration="600"
+                  data-aos-delay={index * 200 + 200}
+                >
                   <p className="text-gray-300 leading-relaxed text-xs">
                     {cert.description}
                   </p>
                 </div>
 
                 {/* Skills */}
-                <div className="mb-4">
+                <div 
+                  className="mb-4"
+                  data-aos="zoom-in"
+                  data-aos-duration="600"
+                  data-aos-delay={index * 200 + 300}
+                >
                   <div className="flex items-center gap-1 mb-2">
                     <HiSparkles className={`text-${cert.accentColor} text-xs`} />
                     <span className={`text-${cert.accentColor} font-semibold text-xs`}>Skills & Topics:</span>
                   </div>
                   <div className="flex flex-wrap gap-1">
-                    {cert.skills.map((skill, index) => (
+                    {cert.skills.map((skill, skillIndex) => (
                       <span 
-                        key={index}
+                        key={skillIndex}
                         className={`px-2 py-0.5 rounded text-xs border bg-${cert.accentColor}/20 text-${cert.accentColor} border-${cert.accentColor}/30`}
+                        data-aos="fade-up"
+                        data-aos-duration="400"
+                        data-aos-delay={index * 200 + 400 + skillIndex * 50}
                       >
                         {skill}
                       </span>
@@ -113,7 +150,12 @@ const Certifications = () => {
                 </div>
 
                 {/* View Certificate Button */}
-                <div className="border-t border-slate-700/30 pt-4">
+                <div 
+                  className="border-t border-slate-700/30 pt-4"
+                  data-aos="slide-up"
+                  data-aos-duration="600"
+                  data-aos-delay={index * 200 + 500}
+                >
                   <a
                     href={cert.certificateLink}
                     target="_blank"
@@ -132,7 +174,12 @@ const Certifications = () => {
           </div>
 
           {/* Bottom CTA Section */}
-          <div className="mt-8 sm:mt-12 text-center">
+          <div 
+            className="mt-8 sm:mt-12 text-center"
+            data-aos="fade-up"
+            data-aos-duration="800"
+            data-aos-delay="600"
+          >
             <div className="max-w-2xl mx-auto">
               <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">
                 Committed to staying updated with the latest technologies and industry best practices 
