@@ -3,11 +3,16 @@ import { Download, Eye, Github, Linkedin } from 'lucide-react';
 import { FaWhatsapp } from 'react-icons/fa';
 
 const HeroSection = () => {
-  // Function to handle resume download
+  // Function to handle resume download and view
   const handleResumeDownload = () => {
-    const fileId = '1_TGI-lYcTeIf0kBlH-jhFAJJn6HSfmgJ';
+    const fileId = '1tGBv_7ubzzgaK_Mfs8pzwKpIEvLXXHKp';
+    
+    // Open resume for viewing in new tab
+    const viewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+    window.open(viewUrl, '_blank');
+    
+    // Download the resume
     const downloadUrl = `https://drive.google.com/uc?export=download&id=${fileId}`;
-
     const link = document.createElement('a');
     link.href = downloadUrl;
     link.download = 'Sudharsun_Resume.pdf';
@@ -83,19 +88,18 @@ const HeroSection = () => {
           {/* Professional Description */}
           <div className="max-w-4xl mx-auto">
             <div className="bg-white/5 backdrop-blur-sm border border-purple-300/20 rounded-2xl lg:rounded-3xl p-6 sm:p-8 lg:p-8 xl:p-8">
-  <p className="text-gray-300/80 leading-relaxed text-sm sm:text-base lg:text-base xl:text-lg 2xl:text-base">
-    I specialize in creating modern, user-friendly, and responsive web applications using{' '}
-    <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">React</span>,{' '}
-    <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">Node.js</span>,{' '}
-    <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">Express</span>, and{' '}
-    <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">MongoDB</span>.{' '}
-    I enjoy solving real-world problems through code and delivering impactful solutions.
-  </p>
-</div>
-
+              <p className="text-gray-300/80 leading-relaxed text-sm sm:text-base lg:text-base xl:text-lg 2xl:text-base">
+                I specialize in creating modern, user-friendly, and responsive web applications using{' '}
+                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">React</span>,{' '}
+                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">Node.js</span>,{' '}
+                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">Express</span>, and{' '}
+                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-fuchsia-400 bg-clip-text text-white-800 font-semibold">MongoDB</span>.{' '}
+                I enjoy solving real-world problems through code and delivering impactful solutions.
+              </p>
+            </div>
           </div>
 
-          {/* CTA Buttons - Updated colors */}
+          {/* CTA Buttons - Single resume button with dual functionality */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center">
             <button
               onClick={handleViewWork}
@@ -106,24 +110,24 @@ rounded-full font-semibold flex items-center space-x-3
 transition-all duration-300 transform hover:scale-105 
 shadow-lg hover:shadow-fuchsia-900/50 w-full sm:w-auto justify-center 
 text-sm sm:text-base lg:text-base xl:text-lg"
-
             >
               <Eye className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 group-hover:scale-110 transition-transform duration-300" />
               <span>View My Work</span>
             </button>
-           <button
-  onClick={handleResumeDownload}
-  className="group bg-transparent border-2 border-purple-400/50 hover:border-fuchsia-400 text-purple-300 hover:text-white 
-  px-8 sm:px-10 lg:px-10 xl:px-12 py-3 sm:py-3 lg:py-3 xl:py-4 
-  rounded-full font-semibold flex items-center space-x-3 
-  transition-all duration-300 transform hover:scale-105 
-  w-full sm:w-auto justify-center text-sm sm:text-base lg:text-base xl:text-lg 
-  hover:bg-gradient-to-r hover:from-violet-700/10 hover:via-purple-800/10 hover:to-fuchsia-900/10"
->
-  <Download className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 group-hover:scale-110 transition-transform duration-300" />
-  <span>Download Resume</span>
-</button>
 
+            {/* Resume Button with dual functionality */}
+            <button
+              onClick={handleResumeDownload}
+              className="group bg-transparent border-2 border-purple-400/50 hover:border-fuchsia-400 text-purple-300 hover:text-white 
+              px-8 sm:px-10 lg:px-10 xl:px-12 py-3 sm:py-3 lg:py-3 xl:py-4 
+              rounded-full font-semibold flex items-center space-x-3 
+              transition-all duration-300 transform hover:scale-105 
+              w-full sm:w-auto justify-center text-sm sm:text-base lg:text-base xl:text-lg 
+              hover:bg-gradient-to-r hover:from-violet-700/10 hover:via-purple-800/10 hover:to-fuchsia-900/10"
+            >
+              <Download className="w-4 h-4 sm:w-5 sm:h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 group-hover:scale-110 transition-transform duration-300" />
+              <span>Download Resume</span>
+            </button>
           </div>
 
           {/* Social Links - Updated colors */}
